@@ -12,11 +12,11 @@
   <div class="lt_container">
     <!-- 顶部通栏 -->
     <header class="lt_topBar">
-      <a href="#" class="icon_left">
+      <a href="javascript:history.back();" class="icon_left">
         <span class="mui-icon mui-icon-back"></span>
       </a>
       <span>乐淘分类</span>
-      <a href="#" class="icon_right">
+      <a href="search.html" class="icon_right">
         <span class="fa fa-search"></span>
       </a>
     </header>
@@ -62,7 +62,7 @@
   <!-- 二级 -->
   <script type="text/template" id="secondRender">
     {{ each rows}}
-    <li><a href="#"><img src="{{ $value.brandLogo }}" alt=""><p>{{$value.brandName}}</p></a></li>
+    <li><a href="#"><img src="{{ $value.brandLogo }}" alt="" onerror="this.src='../images/none.jpg'"><p>{{$value.brandName}}</p></a></li>
     {{ /each}}
   </script>
 </body>
