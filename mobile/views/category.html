@@ -56,7 +56,7 @@
     <% } %> -->
     <!-- 标准语法 -->
     {{ each rows }}
-    <li class="{{ if $index==0}} now {{/if}}"><a href="#">{{$value.categoryName}}</a></li>
+    <li class="{{ if $index==0}} now {{/if}}"><a href="javascript:;" data-id="{{$value.id}}">{{$value.categoryName}}</a></li>
     {{ /each }}
   </script>
   <!-- 二级 -->
