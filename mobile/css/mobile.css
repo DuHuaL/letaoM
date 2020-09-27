@@ -2,6 +2,11 @@
 html,body{
   height: 100%;
 }
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .lt_container{
   width: 100%;
   height: 100%;
@@ -161,4 +166,63 @@ html,body{
   background: #069;
   color: #fff;
   border-color: #069;
+}
+
+/* 分类模块 */
+.lt_cateLeft{
+  width: 90px;
+  height: 100%;
+  float: left;
+  
+}
+.lt_cateLeft ul{
+  width: 100%;
+}
+.lt_cateLeft ul li{
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background: #f5f5f5;
+  font-size: 12px;
+}
+.lt_cateLeft ul li.now{
+  border-right: none;
+  background: #fff;
+}
+.lt_cateLeft ul li.now a{
+  color: #f60;
+}
+.lt_cateLeft ul li a{
+  display: block;
+  width: 100%; 
+  color: #333;
+}
+.lt_cateRight{
+  height: 100%;
+  overflow: hidden;
+}
+.lt_cateRight ul{
+  width: 100%;
+}
+.lt_cateRight ul li{
+  width: 33.3333%;
+  float: left;
+}
+.lt_cateRight ul li a{
+  display: block;
+  width: 100%;
+}
+.lt_cateRight ul li a img{
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+}
+.lt_cateRight ul li a p{
+  font-size: 12px;
+  text-align: center;
+  color: #666;
 }
