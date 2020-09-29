@@ -291,6 +291,7 @@ ul{
   height: 30px;
   line-height: 30px;
   position: relative;
+  font-size: 14px;
 }
 
 .lt_history .content li a{

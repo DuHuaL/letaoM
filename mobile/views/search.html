@@ -40,14 +40,7 @@
         </div>
         <!-- 搜索历史 -->
         <div class="lt_history">
-          <div class="title">
-            <span>搜索历史</span>
-            <a href="javascript:;"><span class="mui-icon mui-icon-trash"></span>清空历史</a>
-          </div>
-          <ul class="content">
-            <li><a href="javascript:;">电脑</a><span class="mui-icon mui-icon-closeempty"></span></li>
-            <li><a href="javascript:;">电脑</a><span class="mui-icon mui-icon-closeempty"></span></li>
-          </ul>
+          <!-- 动态生成 -->
         </div>
       </div>
     </div>
@@ -61,8 +54,27 @@
       </ul>
     </footer>
   </div>
+  <script id="history" type="text/template">
+    {{ if $data.length }}
+    <div class="title">
+      <span>搜索历史</span>
+      <a href="javascript:;"><span class="mui-icon mui-icon-trash"></span>清空历史</a>
+    </div>
+    <ul class="content">
+      <!-- 动态生成 -->
+      <% for (var i = $data.length - 1; i >= 0; i--) { %>
+      <li><a href="#"><%=$data[i] %></a><span class="mui-icon mui-icon-closeempty" data-index="<%= i %>"></span></li>
+      <% } %>
+    </ul>
+    {{ else }} 
+    <div class="title">
+      <span>没有搜索历史记录</span>
+    </div>
+    {{ /if }}
+  </script>
   <script src="../assets/mui/js/mui.min.js"></script>
   <script src="../assets/zepto/zepto.min.js"></script>
+  <script src="../assets/artTemplate/template-web.js"></script>
   <script src="../js/search.js"></script>
 </body>
 </html>
