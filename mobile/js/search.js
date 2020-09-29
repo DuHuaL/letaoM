@@ -89,7 +89,7 @@ Search.prototype.bindEvent = function() {
     // 存储关键字
     that.addStorage(key);
     //跳到搜索列表页
-    location.href = 'searchList.html';
+    location.href = 'searchList.html?key=' + encodeURIComponent(key);
     $input.val('');
   });
   //删除当前一条
@@ -101,5 +101,10 @@ Search.prototype.bindEvent = function() {
   //清空
   $('.lt_history').on('tap','.title a',function() {
     that.clearStorage();
+  });
+
+  $('.lt_history').on('tap','.content li a',function() {
+    var key = $(this).text();
+    location.href = 'searchList.html?key='+encodeURIComponent(key);
   });
 };

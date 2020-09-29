@@ -63,7 +63,7 @@
     <ul class="content">
       <!-- 动态生成 -->
       <% for (var i = $data.length - 1; i >= 0; i--) { %>
-      <li><a href="#"><%=$data[i] %></a><span class="mui-icon mui-icon-closeempty" data-index="<%= i %>"></span></li>
+      <li><a href="javascript:;"><%=$data[i] %></a><span class="mui-icon mui-icon-closeempty" data-index="<%= i %>"></span></li>
       <% } %>
     </ul>
     {{ else }} 
