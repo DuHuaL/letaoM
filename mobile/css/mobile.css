@@ -331,3 +331,123 @@ ul{
 .mui-scroll{
   background: #fff;
 }
+
+/* 商品详情页 */
+/* 底部操作栏 */
+.lt_options{
+  height: 55px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #f5f5f5;
+}
+.lt_options .goCart{
+  color: #333;
+  width: 55px;
+  height: 55px;
+  float: left;
+  line-height: 55px;
+  text-align: center;
+}
+.lt_options .btn{
+  overflow: hidden;
+  padding-right: 10px;
+}
+.lt_options .btn a{
+  width: 48%;
+  float: left;
+  height: 40px;
+  border-radius: 2px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  margin-top: 7px;
+}
+.lt_options .btn .addCart{
+  background: #991020;
+  margin-right: 4%;
+}
+.lt_options .btn .pay{
+  background: #fa672d;
+}
+
+
+/* 内容区域 */
+/* 商品名称 */
+.pro_name{
+  padding: 0 10px;
+  border-bottom: 1px solid #ddd;
+}
+.pro_name p{
+  color: #000;
+  font-size: 16px;
+}
+/* 商品价格 */
+.pro_price{
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+.pro_price p{
+  margin-bottom: 0;
+}
+.pro_price p span.old{
+  text-decoration: line-through;
+  font-size: 12px;
+}
+.pro_price p span.new{
+  color: #fa672d;
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+/* 商品尺码 */
+.pro_size {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+.pro_size span{
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  padding: 0 8px;
+  margin-bottom: 5px;
+}
+
+/* 商品数量 */
+.pro_num{
+  padding: 5px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+.pro_num .box{
+  width: 90px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  display: inline-block;
+}
+.pro_num .box span{
+  width: 29px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  display: inline-block;
+  background: #f5f5f5;
+}
+.pro_num .box input{
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  margin-bottom: 0;
+  padding: 0;
+  text-align: center;
+}
+.pro_num .box span:first-of-type{}
+.pro_num .box span:last-of-type{}
