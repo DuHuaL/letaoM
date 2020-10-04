@@ -6,5 +6,6 @@ router
     .post('/login',process.postLogin)
     .get('/',process.getIndex)
     .get('/category/queryTopCategory',process.getTopCategory)
-    .get('/category/querySecondCategory',process.getSecondCategory);
-module.exports = router;
+    .get('/category/querySecondCategory',process.getSecondCategory)
+    .get('/product/queryProduct', process.getProduct);
+module.exports = router; 

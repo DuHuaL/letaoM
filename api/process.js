@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const fs = require('fs');
 const uurl = require('url');
 var db = require('./data');
@@ -29,4 +30,26 @@ module.exports.getSecondCategory = function(req,res) {
     }
     res.json({rows: result});
   });
+};
+module.exports.getProduct = function(req,res) {
+  var url = req.url;
+  var query = uurl.parse(url,true).query;
+  var data = JSON.stringify(query);
+  var paramsObj = JSON.parse(data); 
+  console.log(paramsObj);
+  var obj = {};
+  var sql0 = 'select *from product';
+  db.query(sql0,(err0,result0,fields0) => {
+    if(err0) throw err0;
+    obj.count = result0.length;
+  });
+  var sql = `select * from product where proName like '%${paramsObj.proName}%' LIMIT ${paramsObj.page},${paramsObj.pageSize}`;
+  db.query(sql, (err, result, fields) =>{
+    if(err) throw err;
+    obj.page= Number(paramsObj.page);
+    obj.pageSize = Number(paramsObj.pageSize);
+    // obj.list = result;
+    obj.list = result;
+    res.json(obj);
+  });  
 };
