@@ -57,7 +57,7 @@
   <script type="text/template" id="renderList">
     {{ each list }}
     <li>
-      <a href="product.html?{{$value.id}}" class="lt_pro_box">
+      <a href="product.html?id={{$value.id}}" class="lt_pro_box">
         <img src="../images/detail.jpg" alt="">
         <p class="name mui-ellipsis-2">{{ $value.proName}}</p>
         <p class="price"><span class="oldPrice">&yen;{{$value.oldPrice}}</span><span class="newPrice">&yen;{{$value.price}}</span></p>

@@ -36,7 +36,6 @@ module.exports.getProduct = function(req,res) {
   var query = uurl.parse(url,true).query;
   var data = JSON.stringify(query);
   var paramsObj = JSON.parse(data); 
-  console.log(paramsObj);
   var obj = {};
   var sql0 = 'select *from product';
   db.query(sql0,(err0,result0,fields0) => {
