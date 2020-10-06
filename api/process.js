@@ -86,3 +86,28 @@ module.exports.postAddCart = function(req,res) {
   res.json({ msg: "添加成功",status:200});
   
 };
+module.exports.getQueryCart = function(req,res) {
+  var sql = 'select * from cart';
+  db.query(sql,(err,result,fields) => {
+    if(err) throw err;
+    for(var i = 0; i < result.length; i++) {
+      (function(i){
+        var proId = result[i].productId;
+        var sql1 = `select * from product where id=${proId}`;
+        db.query(sql1,(err1,result1,fields1) => {
+          if(err1) throw err1;
+          for(var j = 0; j < result1.length; j++) {
+            result[i].proName = result1[j].proName;
+            result[i].price = result1[j].price;
+            result[i].oldPrice = result1[j].oldPrice;
+            result[i].productNum = result1[j].num;
+            result[i].productSize = result1[j].size;
+          }
+          if(i == result.length -1) {
+            res.json({data:result});
+          }
+        });
+      })(i);
+    }   
+  });
+};

@@ -9,5 +9,6 @@ router
     .get('/category/querySecondCategory',process.getSecondCategory)
     .get('/product/queryProduct', process.getProduct)
     .get('/product/queryProductDetail',process.getProductDetail)
-    .post('/cart/addCart',process.postAddCart);
+    .post('/cart/addCart',process.postAddCart)
+    .get('/cart/queryCart',process.getQueryCart);
 module.exports = router; 
