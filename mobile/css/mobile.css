@@ -451,5 +451,44 @@ ul{
   padding: 0;
   text-align: center;
 }
-.pro_num .box span:first-of-type{}
-.pro_num .box span:last-of-type{}
+
+
+/*购物车*/
+.lt_cartPro{
+  display: block;
+}
+.lt_cartPro .name{
+  color: #333;
+}
+.lt_cartPro .price{
+  font-size: 12px;
+}
+.lt_cartPro .price .now{
+  color: #f60;
+}
+.lt_cartPro .price .old{
+  text-decoration: line-through;
+}
+.lt_cartPro .price .num{
+  float: right;
+  margin-right: 10px;
+}
+.lt_cartPro .size{
+  font-size: 12px;
+}
+
+.lt_cartPro input[type="checkbox"]{
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+}
+.mui-table-view .mui-media-object{
+  max-width: 60px;
+  height: 60px;
+}
+.mui-table-view-cell>.mui-slider-handle .mui-navigate-right:after{
+  right: -10px;
+}
+.mui-btn .mui-icon{
+  font-size: 24px;
+}

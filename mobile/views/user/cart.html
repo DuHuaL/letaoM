@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>乐淘-购物车</title>
+  <link rel="stylesheet" href="../../assets/mui/css/mui.min.css">
+  <link rel="stylesheet" href="../../assets/fontAwesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../css/mobile.css">
+</head>
+<body>
+  <div class="lt_container">
+    <!-- 顶部通栏 -->
+    <header class="lt_topBar">
+      <a href="javascript:history.back();" class="icon_left">
+        <span class="mui-icon mui-icon-back"></span>
+      </a>
+      <span>购物车</span>
+      <a href="javascript:;" class="icon_right">
+        <span class="mui-icon mui-icon-refresh"></span>
+      </a>
+    </header>
+    <div class="lt_content">
+      <!-- 区域滚动 -->
+      <div class="lt_wrapper">
+        <div class="mui-scroll-wrapper">
+          <div class="mui-scroll">
+            <!-- 列表 -->
+            <ul class="mui-table-view">
+              <li class="mui-table-view-cell mui-transitioning">
+                <div class="mui-slider-right mui-disabled">
+                  <a class="mui-btn mui-btn-blue" style="transform: translate(0px, 0px);">
+                    <span class="mui-icon mui-icon-compose"></span>
+                  </a>
+                  <a class="mui-btn mui-btn-red" style="transform: translate(0px, 0px);">
+                    <span class="mui-icon mui-icon-trash"></span>
+                  </a>
+                </div>
+                <div class="mui-slider-handle" style="transform: translate(0px, 0px);">
+                  <a href="javascript:;" class="mui-navigate-right lt_cartPro">
+                    <img class="mui-media-object mui-pull-left" src="../../images/detail.jpg">
+                    <div class="mui-media-body">
+                      <p class="name mui-ellipsis-2">这是商品名称的区域这是商品名称的区域这是商品名称的区域这是商品名称的区域这是商品名称的区域</p>
+                      <p class="price">
+                        <span class="now">&yen;99.00</span>
+                        <span class="old">&yen;1999.00</span>
+                        <span class="num">x2双</span>
+                      </p>
+                      <p class="size">鞋码：42</p>
+                    </div>
+                    <input type="checkbox">
+                  </a>
+                </div>
+              </li>
+              <li class="mui-table-view-cell mui-transitioning">
+                <div class="mui-slider-right mui-disabled">
+                  <a class="mui-btn mui-btn-blue" style="transform: translate(0px, 0px);">
+                    <span class="mui-icon mui-icon-compose"></span>
+                  </a>
+                  <a class="mui-btn mui-btn-red" style="transform: translate(0px, 0px);">
+                    <span class="mui-icon mui-icon-trash"></span>
+                  </a>
+                </div>
+                <div class="mui-slider-handle" style="transform: translate(0px, 0px);">
+                  <a href="javascript:;" class="mui-navigate-right lt_cartPro">
+                    <img class="mui-media-object mui-pull-left" src="../../images/detail.jpg">
+                    <div class="mui-media-body">
+                      <p class="name mui-ellipsis-2">这是商品名称的区域这是商品名称的区域这是商品名称的区域这是商品名称的区域这是商品名称的区域</p>
+                      <p class="price">
+                        <span class="now">&yen;99.00</span>
+                        <span class="old">&yen;1999.00</span>
+                        <span class="num">x2双</span>
+                      </p>
+                      <p class="size">鞋码：42</p>
+                    </div>
+                    <input type="checkbox">
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 底部页签 -->
+    <footer class="lt_tabs">
+      <ul>
+        <li><a href="../index.html"><span class="fa fa-home"></span><p>首页</p></a></li>
+        <li><a href="../category.html"><span class="fa fa-bars"></span><p>分类</p></a></li>
+        <li><a href="./user/cart.html" class="now"><span class="fa fa-shopping-cart"></span><p>购物车</p></a></li>
+        <li><a href="./user/index.html"><span class="fa fa-user"></span><p>个人中心</p></a></li>
+      </ul>
+    </footer>
+  </div>
+  <script src="../../assets/mui/js/mui.min.js"></script>
+  <script src="../../assets/zepto/zepto.min.js"></script>
+  <script src="../../js/cart.js"></script>
+</body>
+</html>
