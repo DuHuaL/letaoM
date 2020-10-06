@@ -52,3 +52,28 @@ module.exports.getProduct = function(req,res) {
     res.json(obj);
   });  
 };
+module.exports.getProductDetail = function(req,res) {
+  var url = req.url;
+  var pId = uurl.parse(url,true).query.id;
+  var sql = `select * from product where id = ${pId}`;
+  db.query(sql,(err,result,fields) => {
+    if(err) throw err;
+    res.json({data: result});
+  });
+};
+module.exports.postAddCart = function(req,res) {
+  var paramsObj = req.body;
+  var data1 = JSON.stringify(paramsObj);
+  paramsObj = JSON.parse(data1);
+  //验证登录
+  var sessionObj = req.body;
+  var data1 = JSON.stringify(sessionObj);
+  sessionObj = JSON.parse(data1);
+  if(sessionObj.username) {
+    // 说明已经登录
+    res.json({success: true});
+  } else {
+    //说明未登录
+    res.json({error: 400, message: "未登录"});
+  }
+};
