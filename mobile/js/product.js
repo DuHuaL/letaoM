@@ -63,7 +63,6 @@ Product.prototype.render = function(callback) {
     },
     dataType: 'json',
     success: function(data) {
-      console.log(data);
       // 渲染
       that.$el.html(template('detail',data));
       // 初始化轮播图 // 由于接口数据里没有图片，所以这里是静态的，正常动态渲染需要初始化轮播图
@@ -117,7 +116,7 @@ Product.prototype.addCart = function() {
     mui.toast('亲，请选择数量');
     return false;
   }
-  letao.ajax({
+  $.ajax({
     type: 'post',
     url: 'http://localhost:3000/cart/addCart',
     data: {
@@ -125,10 +124,20 @@ Product.prototype.addCart = function() {
       num: that.num,
       size: that.size
     },
+    dataType: 'json',
     success:function(data) {
-      if(data.success) {
-
-      } 
+      if(data.status === 200) {
+        //弹框提示
+        mui.confirm('亲，添加成功,去购物车看看?','温馨提示',['取消','确认'],function(e){
+          //点击按钮的时候执行
+          // console.log(e);
+          if(e.index ==1) {
+            location.href = '../views/user/cart.html';
+            //阻止关闭窗口
+            return false;
+          }
+        });
+      }
     }
   });
 };

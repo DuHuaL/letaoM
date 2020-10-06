@@ -1,4 +1,4 @@
-const { json } = require('body-parser');
+const md5 = require('md5');
 const fs = require('fs');
 const uurl = require('url');
 var db = require('./data');
@@ -6,7 +6,25 @@ module.exports.getLogin = function(req,res) {
   
 };
 module.exports.postLogin = function(req,res) {
-
+  var params = req.body;
+  var data1 = JSON.stringify(params);
+  params = JSON.parse(data1);
+  var sql = `select * from user`;
+  db.query(sql,(err,result,fields) => {
+    if(err) throw err;
+    //验证登录信息
+    result.forEach((item,index) => {
+      if(item.username == params.username) {
+        //验证成功
+        //保存session
+        req.session.username = params.username;
+        //响应会浏览器
+        res.json({msg: "登录成功",status: 201});
+      } else {
+        res.json({msg: "验证失败,请重新登录",status: 400})
+      }
+    });
+  });
 };
 module.exports.getIndex = function(req,res) {
   
@@ -65,15 +83,6 @@ module.exports.postAddCart = function(req,res) {
   var paramsObj = req.body;
   var data1 = JSON.stringify(paramsObj);
   paramsObj = JSON.parse(data1);
-  //验证登录
-  var sessionObj = req.body;
-  var data1 = JSON.stringify(sessionObj);
-  sessionObj = JSON.parse(data1);
-  if(sessionObj.username) {
-    // 说明已经登录
-    res.json({success: true});
-  } else {
-    //说明未登录
-    res.json({error: 400, message: "未登录"});
-  }
+  res.json({ msg: "添加成功",status:200});
+  
 };

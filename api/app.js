@@ -6,15 +6,16 @@ const cookieSession = require('cookie-session');
 const app = express();
 
 app.use(cors());
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
 
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
 }));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+
 
 // 处理静态资源
 app.use('/mobile',express.static('mobile'));
@@ -45,7 +46,6 @@ app.use('/node_modules', express.static('node_modules'));
 //   }
 // });
 app.use(router);
-
 //
 app.listen(3000,() =>{
   console.log('running');
