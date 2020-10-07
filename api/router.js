@@ -11,5 +11,6 @@ router
     .get('/product/queryProductDetail',process.getProductDetail)
     .post('/cart/addCart',process.postAddCart)
     .get('/cart/queryCart',process.getQueryCart)
-    .post('/cart/updateCart',process.postUpdateCart);
+    .post('/cart/updateCart',process.postUpdateCart)
+    .get('/cart/deleteCart',process.getDeleteCart);
 module.exports = router; 

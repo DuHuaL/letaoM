@@ -43,7 +43,7 @@ Cart.prototype.init = function() {
     }
   });
   that.bindEvent();
-};
+};//渲染
 Cart.prototype.render = function(callback) {
   //如果没有存储数据在内存 Ajax 重新渲染 默认后台数据
   //如果获取过一次 存在内存  修改内存
@@ -69,13 +69,14 @@ Cart.prototype.render = function(callback) {
   }
   
 };
-
 //拿存储在内存中的商品信息
 Cart.prototype.getCartProductById = function(id) {
   var product = null;
   this.cartList.forEach((v,k)=>{
     if(v.id == id) {
       product = v;
+      //追加一个索引
+      product.index = k;
       return false;
     }
   });
@@ -84,8 +85,9 @@ Cart.prototype.getCartProductById = function(id) {
 //编辑商品信息
 Cart.prototype.editCart = function($this) {
   var that = this;
+  var id = $this.data('id')
   //根据id获取当前商品信息
-  var product = that.getCartProductById($this.data('id'));
+  var product = that.getCartProductById(id);
   //弹出窗口并且把当前商品信息渲染上去
   //\n字符会被解析成<br>mui做的
   mui.confirm(template('editCart',{data:product}).replace(/\n/g,''),'编辑商品',['取消','确认'],function(e){
@@ -113,11 +115,47 @@ Cart.prototype.editCart = function($this) {
             that.render(function(){
               mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
             });
+            //修改后重新计算金额
+            that.setAmount();
           }
         }
       });
     } else {
       //取消关闭滑块
+      mui.swipeoutClose($this.parent().parent()[0]);
+    }
+  });
+};
+//删除
+Cart.prototype.deleteCart = function($this) {
+  var that = this
+  var id = $this.data('id');
+  var index = that.getCartProductById(id).index;
+  mui.confirm('老铁,确认删除该商品吗?','删除商品',['取消','确认'],function(e){
+    if(e.index == 1) {
+      //删除
+      $.ajax({
+        type: 'get',
+        url: 'http://localhost:3000/cart/deleteCart',
+        data: {
+          id:id
+        },
+        dataType: 'json',
+        success:function(data) {
+          if(data.success) {
+            //更新列表数据
+            that.cartList.splice(index,1);
+            //渲染列表
+            that.render(function(){
+              mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+            });
+            //重新计算金额
+            that.setAmount();
+          }
+        }
+      });
+    } else {
+      //取消
       mui.swipeoutClose($this.parent().parent()[0]);
     }
   });
@@ -157,6 +195,26 @@ Cart.prototype.changeNum = function($this) {
   //保存为了提交时候使用
   $('.mui-popup-button').data('num', value);
 };
+//复选框计算金额
+Cart.prototype.setAmount = function($this) {
+  //修改金额
+  //计算
+  //获取所有被选中的input
+  //根据id去拿所有被选中的商品信息
+  //去计算数量和单价
+  //计算总金额
+  //修改
+  var amount = 0;
+  this.cartList.forEach((v,k) => {
+    if(v.isChecked) {v
+      //说明被选中
+      //计算
+      amount += v.num * v.price;
+    }
+  });
+  //设置
+  $('.lt_money span').html(amount.toFixed(2));
+};
 Cart.prototype.bindEvent= function() {
   var that = this;
   //js的方式触发下拉刷新按钮
@@ -172,5 +230,19 @@ Cart.prototype.bindEvent= function() {
     that.changeSize($(this));
   }).on('tap','.pro_num span',function() {
     that.changeNum($(this));
+  });
+  //删除按钮
+  $('.mui-table-view').on('tap','.mui-btn-red',function(){
+    that.deleteCart($(this));
+  });
+  //修改金额
+  that.$el.on('change','input',function(){
+    var id = $(this).data('id');
+    var product = that.getCartProductById(id);
+    //设置一个能够判断是否选中的标识
+    //$(this).prop('checked');获取的是布尔类型的
+    //prop()  attr()
+    product.isChecked = $(this).prop('checked');
+    that.setAmount();
   });
 };

@@ -5,6 +5,7 @@ var db = require('./data');
 module.exports.getLogin = function(req,res) {
   
 };
+//登录
 module.exports.postLogin = function(req,res) {
   var params = req.body;
   var data1 = JSON.stringify(params);
@@ -29,6 +30,7 @@ module.exports.postLogin = function(req,res) {
 module.exports.getIndex = function(req,res) {
   
 };
+//获取一级分类
 module.exports.getTopCategory = function(req,res) {
   var url = req.url;
   var sql = 'select * from category';
@@ -37,6 +39,7 @@ module.exports.getTopCategory = function(req,res) {
     res.json({rows: result});
   });
 };
+//获取二级分类
 module.exports.getSecondCategory = function(req,res) {
   var url = req.url;
   var id = uurl.parse(url, true).query.id;
@@ -49,6 +52,7 @@ module.exports.getSecondCategory = function(req,res) {
     res.json({rows: result});
   });
 };
+//商品列表页
 module.exports.getProduct = function(req,res) {
   var url = req.url;
   var query = uurl.parse(url,true).query;
@@ -70,6 +74,7 @@ module.exports.getProduct = function(req,res) {
     res.json(obj);
   });  
 };
+//获取商品详情页信息
 module.exports.getProductDetail = function(req,res) {
   var url = req.url;
   var pId = uurl.parse(url,true).query.id;
@@ -79,11 +84,11 @@ module.exports.getProductDetail = function(req,res) {
     res.json({data: result});
   });
 };
+//添加购物车
 module.exports.postAddCart = function(req,res) {
   var paramsObj = req.body;
   var data1 = JSON.stringify(paramsObj);
   paramsObj = JSON.parse(data1);
-  console.log(paramsObj);
   var sql = `insert into cart (productId,num,size) values (${paramsObj.productId},${paramsObj.num},${paramsObj.size})`;
   db.query(sql,(err,result,fields)=> {
     if(err) throw err;
@@ -92,6 +97,7 @@ module.exports.postAddCart = function(req,res) {
     }
   });
 };
+//获取购物车信息
 module.exports.getQueryCart = function(req,res) {
   var sql = 'select * from cart';
   db.query(sql,(err,result,fields) => {
@@ -117,6 +123,7 @@ module.exports.getQueryCart = function(req,res) {
     }   
   });
 };
+//更新购物车
 module.exports.postUpdateCart = function(req,res) {
   var params = req.body;
   var data1 = JSON.stringify(params);
@@ -124,10 +131,21 @@ module.exports.postUpdateCart = function(req,res) {
   var sql = `update cart set num=${params.num},size=${params.size} where id=${params.id}`;
   db.query(sql,(err,result,fields) => {
     if(err) throw err;
-    console.log(result);
     if(result.affectedRows == 1) {
       res.json({success:true});
-
     }
   });
-}
+};
+//删除购物车商品
+module.exports.getDeleteCart = function(req,res) {
+  var url = req.url;
+  var id = uurl.parse(url,true).query.id;
+  var sql = `delete from cart where id=${id}`;
+  db.query(sql,(err,result,fields) => {
+    if(err) throw err;
+    if(result.affectedRows == 1) {
+      res.json({success:true});
+    }
+  });
+  
+};
