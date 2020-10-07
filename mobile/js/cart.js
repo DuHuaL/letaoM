@@ -42,24 +42,135 @@ Cart.prototype.init = function() {
       }
     }
   });
+  that.bindEvent();
 };
 Cart.prototype.render = function(callback) {
+  //如果没有存储数据在内存 Ajax 重新渲染 默认后台数据
+  //如果获取过一次 存在内存  修改内存
   var that = this;
-  //这里发请求需要登录，由于接口没写完，这是就省略登录验证
-  $.ajax({
-    type: 'get',
-    url: 'http://localhost:3000/cart/queryCart',
-    data: {},
-    dataType: 'json',
-    success:function(data) {
-      console.log(data);
-      that.$el.html(template('cart',data));
-      callback&&callback();
+  if(that.cartList) {
+    that.$el.html(template('cart',that.cartList));
+    callback && callback();
+  } else {
+    //这里发请求需要登录，由于接口没写完，这是就省略登录验证
+    $.ajax({
+      type: 'get',
+      url: 'http://localhost:3000/cart/queryCart',
+      data: {},
+      dataType: 'json',
+      success:function(data) {
+        // console.log(data);
+        //保存数据在内存////////////////////////////////////////////
+        that.cartList = data;
+        that.$el.html(template('cart',data));
+        callback && callback();
+      }
+    });
+  }
+  
+};
+
+//拿存储在内存中的商品信息
+Cart.prototype.getCartProductById = function(id) {
+  var product = null;
+  this.cartList.forEach((v,k)=>{
+    if(v.id == id) {
+      product = v;
+      return false;
+    }
+  });
+  return product;
+};
+//编辑商品信息
+Cart.prototype.editCart = function($this) {
+  var that = this;
+  //根据id获取当前商品信息
+  var product = that.getCartProductById($this.data('id'));
+  //弹出窗口并且把当前商品信息渲染上去
+  //\n字符会被解析成<br>mui做的
+  mui.confirm(template('editCart',{data:product}).replace(/\n/g,''),'编辑商品',['取消','确认'],function(e){
+    if(e.index == 1) {
+      //确认
+      var size = $('.mui-popup-button').data('size');
+      var num = $('.mui-popup-button').data('num');
+      //提交到后台
+      $.ajax({
+        type: 'post',
+        url: 'http://localhost:3000/cart/updateCart',
+        data: {
+          id: id,
+          size: size || product.size,
+          num: num || product.num
+        },
+        dataType: 'json',
+        success:function(data) {
+          console.log(data);
+          if(data.success) {
+            //修改成功
+            product.size = size;
+            product.num = num;
+            //渲染列表
+            that.render(function(){
+              mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+            });
+          }
+        }
+      });
+    } else {
+      //取消关闭滑块
+      mui.swipeoutClose($this.parent().parent()[0]);
     }
   });
 };
+Cart.prototype.changeSize = function($this) {
+  // 选择尺码
+  $('.pro_size span').removeClass('now');
+  $this.addClass('now');
+  // 选择的时候记录尺码
+  // this.size = $this.text();
+  //保存为了提交时候使用
+  $('.mui-popup-button').data('size',$this.text());
+};
+Cart.prototype.changeNum = function($this) {
+  //选择数量
+  var $input = $('.pro_num input');
+  var value = $input.val();
+  var max = $input.data('max');
+  var type = $this.data('type');
+  if(type== 0) {
+    // 减
+    if(value <= 1) {
+      mui.toast('亲，不能再少了');
+      return false;
+    }
+    value --;
+  } else {
+    //加
+    if(value >= max) {
+      mui.toast('亲，不能再多了');
+      return false;
+    }
+    value ++;
+  }
+  $input.val(value);
+  // this.num = value;
+  //保存为了提交时候使用
+  $('.mui-popup-button').data('num', value);
+};
 Cart.prototype.bindEvent= function() {
+  var that = this;
+  //js的方式触发下拉刷新按钮
   $('.mui-icon-refresh').on('tap',function(){
-
+    mui('.mui-scroll-wrapper').pullRefresh().pulldownLoading();
+  });
+  //编辑按钮
+  that.$el.on('tap','.mui-btn-blue',function() {
+    that.editCart($(this));
+  });
+  //绑定弹窗的尺码和数量
+  $('body').on('tap','.pro_size span',function() {
+    that.changeSize($(this));
+  }).on('tap','.pro_num span',function() {
+    that.changeNum($(this));
   });
 };

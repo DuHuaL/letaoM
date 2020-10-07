@@ -83,8 +83,14 @@ module.exports.postAddCart = function(req,res) {
   var paramsObj = req.body;
   var data1 = JSON.stringify(paramsObj);
   paramsObj = JSON.parse(data1);
-  res.json({ msg: "添加成功",status:200});
-  
+  console.log(paramsObj);
+  var sql = `insert into cart (productId,num,size) values (${paramsObj.productId},${paramsObj.num},${paramsObj.size})`;
+  db.query(sql,(err,result,fields)=> {
+    if(err) throw err;
+    if(result.affectedRows == 1) {
+      res.json({ msg: "添加成功",status:200});
+    }
+  });
 };
 module.exports.getQueryCart = function(req,res) {
   var sql = 'select * from cart';
@@ -104,10 +110,24 @@ module.exports.getQueryCart = function(req,res) {
             result[i].productSize = result1[j].size;
           }
           if(i == result.length -1) {
-            res.json({data:result});
+            res.send(result);
           }
         });
       })(i);
     }   
   });
 };
+module.exports.postUpdateCart = function(req,res) {
+  var params = req.body;
+  var data1 = JSON.stringify(params);
+  params = JSON.parse(data1);
+  var sql = `update cart set num=${params.num},size=${params.size} where id=${params.id}`;
+  db.query(sql,(err,result,fields) => {
+    if(err) throw err;
+    console.log(result);
+    if(result.affectedRows == 1) {
+      res.json({success:true});
+
+    }
+  });
+}
